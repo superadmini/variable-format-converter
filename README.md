@@ -1,3 +1,10 @@
+<!--
+ * @Description: file use to description
+ * @Date: 2025-11-21 15:58:47
+ * @LastEditTime: 2025-11-22 12:26:22
+ * @copyRight: Yuan Shang Development
+ * @FilePath: /variable-format-converter/README.md
+-->
 # Variable Format Converter
 
 This extension allows you to easily convert variable names between different naming conventions.

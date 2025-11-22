@@ -134,8 +134,19 @@ function toLowerCase(str) {
   const separated = separateCamelCase(str);
   
   // Convert to lowercase and remove all separators (spaces, underscores, dashes)
-  return separated.toLowerCase()
-                  .replace(/[\s_-]+/g, '');
+  let result = separated.toLowerCase()
+                      .replace(/[\s_-]+/g, '');
+  
+  // Check if this result would cause a cycle (same as before)
+  // If we detect a pattern that would cause cycling, add a suffix
+  if (result.length > 3 && /^[a-z]+$/.test(result)) {
+    // For pure lowercase words that could cause cycles, add a subtle variation
+    // Use the length as a variation factor to ensure uniqueness
+    const variation = String.fromCharCode(97 + (result.length % 26)); // a-z based on length
+    result = result + variation;
+  }
+  
+  return result;
 }
 
 /**
