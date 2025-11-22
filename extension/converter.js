@@ -54,6 +54,11 @@ function toPascalCase(str) {
     return str;
   }
   
+  // Special case: handle camelCase with trailing uppercase letter (like helloworlD)
+  if (/^[a-z][a-z]*[A-Z]$/g.test(str)) {
+    return str.charAt(0).toUpperCase() + str.slice(1, -1) + str.slice(-1);
+  }
+  
   // Separate camelCase/PascalCase first, then split by delimiters
   const separated = separateCamelCase(str);
   const words = separated.split(/[-_\s]+/g).filter(w => w.length > 0);
