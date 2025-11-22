@@ -10,7 +10,7 @@ const {
   toKebabCase, 
   toUpperCase,
   toLowerCase
-} = require('./converter');
+} = require('./converter.js');
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -121,8 +121,8 @@ function detectFormat(text) {
     return 'kebab-case';
   }
   
-  // Check for PascalCase (starts with uppercase, no separators)
-  if (/^[A-Z][a-zA-Z0-9]*$/.test(text)) {
+  // Check for PascalCase (starts with uppercase, no separators, contains at least one lowercase)
+  if (/^[A-Z][a-zA-Z0-9]*$/.test(text) && /[a-z]/.test(text)) {
     return 'PascalCase';
   }
   
@@ -131,8 +131,8 @@ function detectFormat(text) {
     return 'camelCase';
   }
   
-  // Check for lowercase (all lowercase, no separators, no uppercase letters)
-  if (/^[a-z][a-z0-9]*$/.test(text) && !/[A-Z]/.test(text)) {
+  // Check for lowercase (all lowercase, no separators, no uppercase letters, at least 2 chars)
+  if (/^[a-z][a-z0-9]*$/.test(text) && !/[A-Z]/.test(text) && text.length > 1) {
     return 'lowercase';
   }
   
@@ -155,7 +155,8 @@ function circleChangeFormat() {
     { name: 'PascalCase', func: toPascalCase },
     { name: 'snake_case', func: toSnakeCase },
     { name: 'UPPER_CASE', func: toUpperCase },
-    { name: 'kebab-case', func: toKebabCase }
+    { name: 'kebab-case', func: toKebabCase },
+    { name: 'lowercase', func: toLowerCase }
   ];
 
   // Get the selected text or word under cursor
@@ -186,12 +187,25 @@ function circleChangeFormat() {
     if (currentIndex === -1) currentIndex = 0;
   }
   
-  // Move to next format (skip 'Original' if we're not at the end)
+  // Move to next format
   let nextIndex = (currentIndex + 1) % formats.length;
   
   // Convert to next format
   const nextFormat = formats[nextIndex];
-  convertVariable(nextFormat.func);
+  
+  // Apply the conversion directly to avoid issues with convertVariable function
+  editor.edit(editBuilder => {
+    if (selection.isEmpty) {
+      const wordRange = editor.document.getWordRangeAtPosition(selection.active);
+      if (wordRange) {
+        const converted = nextFormat.func(originalText);
+        editBuilder.replace(wordRange, converted);
+      }
+    } else {
+      const converted = nextFormat.func(originalText);
+      editBuilder.replace(selection, converted);
+    }
+  });
   
   // Show notification
   vscode.window.showInformationMessage(`Converted from ${currentFormat} to ${nextFormat.name}`);

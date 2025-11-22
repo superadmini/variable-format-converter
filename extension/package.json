@@ -1,9 +1,10 @@
 {
   "name": "admin-variable-format-converter",
-  "displayName": "Admin Var Format Converter",
-  "description": "Convert variables between different naming conventions",
-  "version": "0.0.4",
-  "publisher": "developer",
+  "displayName": "Admin Var Circle Format Converter",
+  "description": "Convert variables between different naming conventions and circle change format",
+  "version": "0.0.5",
+  "publisher": "superadmini",
+  "icon": "./images/app_line.png",
   "engines": {
     "vscode": "^1.74.0"
   },

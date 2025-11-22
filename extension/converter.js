@@ -16,20 +16,16 @@ function toCamelCase(str) {
     return str;
   }
   
-  // Split the string by common delimiters
-  const words = str.split(/[-_\s]+/g);
+  // Separate camelCase/PascalCase first, then split by delimiters
+  const separated = separateCamelCase(str);
+  const words = separated.split(/[-_\s]+/g).filter(w => w.length > 0);
   
   // Return early if no words
   if (words.length === 0) return '';
   
-  // If only one word and it's all lowercase, try to make it camelCase by capitalizing some letters
-  if (words.length === 1 && /^[a-z]+$/.test(words[0])) {
-    const word = words[0];
-    if (word.length > 1) {
-      // For words longer than 1 character, capitalize second letter to make it camelCase
-      return word.charAt(0) + capitalizeFirstLetter(word.substring(1));
-    }
-    return word; // Keep single character as is
+  // If only one word, return it as lowercase
+  if (words.length === 1) {
+    return words[0].toLowerCase();
   }
   
   // First word lowercase, rest capitalized
@@ -52,8 +48,9 @@ function toPascalCase(str) {
     return str;
   }
   
-  // Split the string by common delimiters
-  const words = str.split(/[-_\s]+/g);
+  // Separate camelCase/PascalCase first, then split by delimiters
+  const separated = separateCamelCase(str);
+  const words = separated.split(/[-_\s]+/g).filter(w => w.length > 0);
   
   // Return early if no words
   if (words.length === 0) return '';

@@ -1,7 +1,7 @@
 {
   "name": "admin-variable-format-converter",
-  "displayName": "Admin Var Format Converter",
-  "description": "Convert variables between different naming conventions",
+  "displayName": "Admin Var Circle Format Converter",
+  "description": "Convert variables between different naming conventions and circle change format",
   "version": "0.0.5",
   "publisher": "superadmini",
   "engines": {
