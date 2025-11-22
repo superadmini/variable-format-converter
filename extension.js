@@ -126,14 +126,14 @@ function detectFormat(text) {
     return 'PascalCase';
   }
   
-  // Check for camelCase (starts with lowercase, contains uppercase)
-  if (/^[a-z][a-zA-Z0-9]*$/.test(text) && /[A-Z]/.test(text)) {
-    return 'camelCase';
-  }
-  
   // Check for lowercase (all lowercase, no separators, no uppercase letters, at least 2 chars)
   if (/^[a-z][a-z0-9]*$/.test(text) && !/[A-Z]/.test(text) && text.length > 1) {
     return 'lowercase';
+  }
+  
+  // Check for camelCase (starts with lowercase, contains uppercase)
+  if (/^[a-z][a-zA-Z0-9]*$/.test(text) && /[A-Z]/.test(text)) {
+    return 'camelCase';
   }
   
   return 'unknown';
