@@ -24,13 +24,9 @@ function toCamelCase(str) {
   if (words.length === 0) return '';
   
   // If only one word and it's all lowercase (coming from lowercase format), 
-  // convert to a simple camelCase by capitalizing the second letter if possible
+  // just return it as is since we can't create meaningful camelCase from a single word
   if (words.length === 1) {
     const word = words[0].toLowerCase();
-    // If it's a single lowercase word with more than 2 chars, make second letter uppercase to create camelCase
-    if (/^[a-z]+$/.test(word) && word.length > 2) {
-      return word.charAt(0) + word.charAt(1).toUpperCase() + word.slice(2);
-    }
     return word;
   }
   
