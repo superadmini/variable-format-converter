@@ -24,10 +24,14 @@ function toCamelCase(str) {
   if (words.length === 0) return '';
   
   // If only one word and it's all lowercase (coming from lowercase format), 
-  // just return it as is since we can't create meaningful camelCase from a single word
+  // create a camelCase by capitalizing the last letter to ensure cycle continues
   if (words.length === 1) {
     const word = words[0].toLowerCase();
-    return word;
+    if (word.length > 1) {
+      // Capitalize the last character to create camelCase
+      return word.slice(0, -1) + word.slice(-1).toUpperCase();
+    }
+    return word; // Single character, return as is
   }
   
   // First word lowercase, rest capitalized

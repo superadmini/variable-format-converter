@@ -2,7 +2,7 @@
   "name": "admin-variable-format-converter",
   "displayName": "Admin Var Circle Format Converter",
   "description": "Convert variables between different naming conventions and circle change format",
-  "version": "0.0.7",
+  "version": "0.0.9",
   "publisher": "superadmini",
   "icon": "images/app_line.png",
   "engines": {
